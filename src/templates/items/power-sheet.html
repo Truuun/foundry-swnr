@@ -2,12 +2,12 @@
   {{> "systems/swnr/templates/items/fragments/desc.html"}}
   <div class="flex gap-1">
     <div>
-      <label for="data.source">{{localize 'swnr.sheet.source'}}: </label>
+      <label for="system.source">{{localize 'swnr.sheet.source'}}: </label>
       <input
         type="text"
         class="px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-opacity-75 rounded-md"
-        name="data.source"
-        value="{{data.data.source}}"
+        name="system.source"
+        value="{{item.system.source}}"
       />
     </div>
     <div>
@@ -15,8 +15,8 @@
       <input
         type="number"
         class="px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-opacity-75 rounded-md"
-        name="data.level"
-        value="{{data.data.level}}"
+        name="system.level"
+        value="{{item.system.level}}"
         step="1"
         min="0"
         max="5"
@@ -27,8 +27,8 @@
 			<input
         type="text"
         class="px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-opacity-75 rounded-md"
-        name="data.roll"
-        value="{{data.data.roll}}"
+        name="system.roll"
+        value="{{item.system.roll}}"
       />
     </div>
 
@@ -37,8 +37,8 @@
 			<input
         type="text"
         class="px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-opacity-75 rounded-md"
-        name="data.duration"
-        value="{{data.data.duration}}"
+        name="system.duration"
+        value="{{item.system.duration}}"
       />
     </div>
 
@@ -46,9 +46,9 @@
       <label for="">{{localize 'swnr.sheet.powers.save'}}:</label>
         <select
           class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md"
-          name="data.save"
+          name="system.save"
         >
-          {{#select data.data.save}}
+          {{#select item.system.save}}
           <option value="">-</option>
           <option value="physical">{{localize 'swnr.sheet.saves.physical'}}</option>
           <option value="mental">{{localize 'swnr.sheet.saves.mental'}}</option>
@@ -66,17 +66,17 @@
 			<input
         type="text"
         class="px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-opacity-75 rounded-md"
-        name="data.range"
-        value="{{data.data.range}}"
+        name="system.range"
+        value="{{item.system.range}}"
       />
     </div>
     <div class="flex flex-col">
-    <label for="data.skill">{{localize 'swnr.sheet.powers.skill'}}:</label>
+    <label for="system.skill">{{localize 'swnr.sheet.powers.skill'}}:</label>
 			<input
         type="text"
         class="px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-opacity-75 rounded-md"
-        name="data.skill"
-        value="{{data.data.skill}}"
+        name="system.skill"
+        value="{{item.system.skill}}"
       />
     </div>
 
@@ -85,9 +85,9 @@
       <label for=""><br>{{localize 'swnr.effort.title'}}:</label>
         <select
           class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md"
-          name="data.effort"
+          name="system.effort"
         >
-          {{#select data.data.effort}}
+          {{#select item.system.effort}}
           <option value="">-</option>
           <option value="day">{{localize 'swnr.effort.day'}}</option>
           <option value="scene">{{localize 'swnr.effort.scene'}}</option>
@@ -101,8 +101,8 @@
         <input
           class="px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-opacity-75 rounded-md"
           type="checkbox"
-          name="data.prepared"
-          {{checked data.data.prepared}}
+          name="system.prepared"
+          {{checked item.system.prepared}}
       />
         <div>{{localize 'swnr.sheet.powers.prepared'}}</div>
       </label>

@@ -26,9 +26,9 @@
         <h2 class="col-span-1 flex items-center gap-2">
           <select
             class="flex-grow pl-2 w-full border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-            name="data.reaction"
+            name="system.reaction"
           >
-            {{#select actor.data.data.reaction}}
+            {{#select actor.system.reaction}}
             <option value="unknown">
               {{localize 'swnr.npc.reaction.unknown'}}
             </option>
@@ -55,22 +55,22 @@
         </h2>
         <input
           class="hidden sm:block col-span-2 border px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-          name="data.species"
+          name="system.species"
           type="text"
-          value="{{actor.data.data.species}}"
+          value="{{actor.system.species}}"
           placeholder="{{localize 'swnr.sheet.species'}}"
         />
         <input
           class="hidden sm:block col-span-2 border px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-          name="data.homeworld"
-          value="{{actor.data.data.homeworld}}"
+          name="system.homeworld"
+          value="{{actor.system.homeworld}}"
           placeholder="{{localize 'swnr.sheet.homeworld'}}"
           type="text"
         />
         <input
           class="hidden sm:block col-span-2 border px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-          name="data.faction"
-          value="{{actor.data.data.faction}}"
+          name="system.faction"
+          value="{{actor.system.faction}}"
           placeholder="{{localize 'swnr.sheet.factionname'}}"
           type="text"
         />
@@ -87,17 +87,17 @@
         <input
           class="w-8 border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
           type="number"
-          name="data.health.value"
+          name="system.health.value"
           min="0"
           step="1"
-          value="{{actor.data.data.health.value}}"
+          value="{{actor.system.health.value}}"
         />/<input
           class="w-8 border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
           type="number"
-          name="data.health.max"
+          name="system.health.max"
           min="0"
           step="1"
-          value="{{actor.data.data.health.max}}"
+          value="{{actor.system.health.max}}"
         />
       </div>
       <div title="The number of hit dice to roll. If the die button is never clicked
@@ -115,48 +115,48 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         {{localize 'swnr.sheet.hit-dice'}}:
         <input
           class="w-20 border text-center px-3 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-          name="data.hitDice"
-          value="{{actor.data.data.hitDice}}"
+          name="system.hitDice"
+          value="{{actor.system.hitDice}}"
         />
         <a class="hit-dice-roll">
           <i class="fa fa-dice-d6"></i>
         </a>
       </div>        
       <div>
-        {{#if actor.data.data.settings.useCWNArmor}}
+        {{#if actor.system.settings.useCWNArmor}}
           {{localize 'swnr.armor.ranged'}}
         {{/if}}
         {{localize 'swnr.sheet.armor-class'}}:
         <input
           class="w-8 border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
           type="number"
-          name="data.baseAc"
+          name="system.baseAc"
           min="0"
           step="1"
-          value="{{actor.data.data.baseAc}}"
+          value="{{actor.system.baseAc}}"
         />
       </div>
-      {{#if actor.data.data.settings.useCWNArmor}}
+      {{#if actor.system.settings.useCWNArmor}}
       <div>
         {{localize 'swnr.armor.melee'}}
          {{localize 'swnr.sheet.armor-class'}}:
         <input
           class="w-8 border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
           type="number"
-          name="data.meleeAc"
+          name="system.meleeAc"
           min="0"
           step="1"
-          value="{{actor.data.data.meleeAc}}"
+          value="{{actor.system.meleeAc}}"
         />
       </div>
       {{/if}}
       <div>
         {{localize 'swnr.armor.type.label'}}:
         <select
-          name="data.armorType"
+          name="system.armorType"
           class="border border-gray-800 pl-1 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         >
-          {{#select actor.data.data.armorType}}
+          {{#select actor.system.armorType}}
           <option value="primitive">
             {{localize 'swnr.armor.type.primitive'}}
           </option>
@@ -169,7 +169,7 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         </select>
       </div>
 
-      {{#if actor.data.data.settings.useTrauma}}
+      {{#if actor.system.settings.useTrauma}}
       <div class="flex items-baseline gap-1">
 
         {{localize 'swnr.sheet.traumaTarget'}}:
@@ -177,10 +177,10 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
           <input
             class="w-8 border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
             type="number"
-            name="data.traumaTarget"
+            name="system.traumaTarget"
             min="0"
             step="1"
-            value="{{actor.data.data.traumaTarget}}"
+            value="{{actor.system.traumaTarget}}"
           />
         </div>
       </div>
@@ -192,10 +192,10 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
           <input
             class="border border-r-0 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-l-md text-right"
             type="number"
-            name="data.speed"
+            name="system.speed"
             min="0"
             step="1"
-            value="{{actor.data.data.speed}}"
+            value="{{actor.system.speed}}"
           />
           <div
             class="border border-l-0 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-r-md text-base pl-0.5 pr-1"
@@ -215,11 +215,11 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         <input
           class="border border-gray-800 px-1 text-center bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md w-6"
           type="number"
-          name="data.moralScore"
+          name="system.moralScore"
           min="0"
           max="12"
           step="1"
-          value="{{actor.data.data.moralScore}}"
+          value="{{actor.system.moralScore}}"
         />
       </div>
       <div>
@@ -236,11 +236,11 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         <input
           class="border border-gray-800 px-1 text-center bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md w-6"
           type="number"
-          name="data.skillBonus"
+          name="system.skillBonus"
           min="0"
           max="9"
           step="1"
-          value="{{actor.data.data.skillBonus}}"
+          value="{{actor.system.skillBonus}}"
         />
       </div>
       <div>
@@ -251,11 +251,11 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         <input
           class="border border-gray-800 px-1 text-center bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md w-6"
           type="number"
-          name="data.saves"
+          name="system.saves"
           min="1"
           max="19"
           step="1"
-          value="{{actor.data.data.saves}}"
+          value="{{actor.system.saves}}"
         />
       </div>
       {{#if (useCWNArmor)}}
@@ -269,30 +269,30 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         <input
           class="border border-gray-800 px-3 text-center bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md w-8"
           type="number"
-          name="data.baseSoakTotal.value"
+          name="system.baseSoakTotal.value"
           min="0"
           step="1"
-          value="{{actor.data.data.baseSoakTotal.value}}"
+          value="{{actor.system.baseSoakTotal.value}}"
         />
         / 
         <input
           class="border border-gray-800 px-3 text-center bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md w-8"
           type="number"
-          name="data.baseSoakTotal.max"
+          name="system.baseSoakTotal.max"
           min="0"
           step="1"
-          value="{{actor.data.data.baseSoakTotal.max}}"
+          value="{{actor.system.baseSoakTotal.max}}"
         />
       </div>
       <div>
         Total Soak: 
         <span
           class="border border-gray-800 px-3 w-16 text-center bg-gray-400 bg-opacity-75 text-gray-300 cursor-not-allowed placeholder-opacity-75 rounded-md w-6"
-         >{{actor.data.data.soakTotal.value}}</span>
+         >{{actor.system.soakTotal.value}}</span>
         / 
         <span
           class="border border-gray-800 px-3 w-16 text-center bg-gray-400 bg-opacity-75 text-gray-300 cursor-not-allowed placeholder-opacity-75 rounded-md w-6"
-         >{{actor.data.data.soakTotal.max}}</span>
+         >{{actor.system.soakTotal.max}}</span>
       </div>
       {{/if}}
     </div>
@@ -305,10 +305,10 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
             <input
               class="border border-gray-800 px-1 text-center bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md w-8"
               type="number"
-              name="data.effort.max"
+              name="system.effort.max"
               min="0"
               step="1"
-              value="{{actor.data.data.effort.max}}"
+              value="{{actor.system.effort.max}}"
             />
           </div>
           <div class="flex-grow">
@@ -316,11 +316,11 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
             <input
               class="border border-gray-800 px-1 text-center bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md w-8"
               type="number"
-              name="data.effort.current"
+              name="system.effort.current"
               min="0"
               step="1"
-              max="{{concat data.effort.current data.effort.value}}"
-              value="{{actor.data.data.effort.current}}"
+              max="{{concat actor.system.effort.current actor.system.effort.value}}"
+              value="{{actor.system.effort.current}}"
             />
           </div>
           <div class="flex-grow">
@@ -328,11 +328,11 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
             <input
               class="border border-gray-800 px-1 text-center bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md w-8"
               type="number"
-              name="data.effort.scene"
+              name="system.effort.scene"
               min="0"
               step="1"
-              max="{{concat data.effort.scene data.effort.value}}"
-              value="{{actor.data.data.effort.scene}}"
+              max="{{concat actor.system.effort.scene actor.system.effort.value}}"
+              value="{{actor.system.effort.scene}}"
             />
           </div>
           <div class="flex-grow">
@@ -340,22 +340,22 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
             <input
               class="border border-gray-800 px-1 text-center bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md w-8"
               type="number"
-              name="data.effort.day"
+              name="system.effort.day"
               min="0"
               step="1"
-              max="{{concat data.effort.day data.effort.value}}"
-              value="{{actor.data.data.effort.day}}"
+              max="{{concat actor.system.effort.day actor.system.effort.value}}"
+              value="{{actor.system.effort.day}}"
             />
           </div>
         </div>
         <div class="flex gap-2 items-center">
-          <div>{{actor.data.data.effort.value}}/{{actor.data.data.effort.max}}</div>
+          <div>{{actor.system.effort.value}}/{{actor.system.effort.max}}</div>
           <div
             class="bg-purple-300 border border-purple-900 w-full rounded-full h-full overflow-hidden"
           >
             <div
               class="bg-purple-500 h-full rounded-full"
-              style="width: min(calc(100% * {{actor.data.data.effort.value}}/{{actor.data.data.effort.max}}));"
+              style="width: min(calc(100% * {{actor.system.effort.value}}/{{actor.system.effort.max}}));"
             ></div>
           </div>
         </div>
@@ -372,10 +372,10 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         <input
           class="w-8 border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
           type="number"
-          name="data.attacks.number"
+          name="system.attacks.number"
           min="0"
           step="1"
-          value="{{actor.data.data.attacks.number}}"
+          value="{{actor.system.attacks.number}}"
         />
       </div>
       <div>
@@ -386,10 +386,10 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         <input
           class="w-8 border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
           type="number"
-          name="data.ab"
+          name="system.ab"
           min="0"
           step="1"
-          value="{{actor.data.data.ab}}"
+          value="{{actor.system.ab}}"
         />
       </div>
 
@@ -400,10 +400,10 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         <input
           class="w-8 border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
           type="number"
-          name="data.meleeAb"
+          name="system.meleeAb"
           min="0"
           step="1"
-          value="{{actor.data.data.meleeAb}}"
+          value="{{actor.system.meleeAb}}"
         />
       </div>
       {{/if}}
@@ -412,16 +412,16 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
         <input
           class="w-8 border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
           type="number"
-          name="data.attacks.bonusDamage"
+          name="system.attacks.bonusDamage"
           min="0"
           step="1"
-          value="{{actor.data.data.attacks.bonusDamage}}"
+          value="{{actor.system.attacks.bonusDamage}}"
         />
       </div>
       <ul class="flex flex-col gap-1">
         {{#each itemTypes.weapon as |i|}} {{>
         "systems/swnr/templates/actors/fragments/weapon.html" item=i actor=actor
-        damageBonus=actor.data.data.attacks.bonusDamage hitBonus=data.data.ab
+        damageBonus=actor.system.attacks.bonusDamage hitBonus=actor.system.ab
         type=actor.type}} {{/each}}
       </ul>
     </div>
@@ -477,35 +477,35 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
       <input
         class="border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         type="text"
-        name="data.notes.left.label"
-        value="{{actor.data.data.notes.left.label}}"
+        name="system.notes.left.label"
+        value="{{actor.system.notes.left.label}}"
       />
       <!-- prettier-ignore  -->
       <textarea
-        name="data.notes.left.contents"
+        name="system.notes.left.contents"
         class="border px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         id=""
         cols="30"
         rows="10"
-        placeholder="{{actor.data.data.notes.left.label}}"
-      >{{actor.data.data.notes.left.contents}}</textarea>
+        placeholder="{{actor.system.notes.left.label}}"
+      >{{actor.system.notes.left.contents}}</textarea>
     </div>
     <div class="flex-grow w-56 space-y-2">
       <input
         class="border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         type="text"
-        name="data.notes.right.label"
-        value="{{actor.data.data.notes.right.label}}"
+        name="system.notes.right.label"
+        value="{{actor.system.notes.right.label}}"
       />
       <!-- prettier-ignore  -->
       <textarea
-        name="data.notes.right.contents"
+        name="system.notes.right.contents"
         class="border px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         id=""
         cols="30"
         rows="10"
-        placeholder="{{actor.data.data.notes.right.label}}"
-      >{{actor.data.data.notes.right.contents}}</textarea>
+        placeholder="{{actor.system.notes.right.label}}"
+      >{{actor.system.notes.right.contents}}</textarea>
     </div>
   </div>
   <div class="flex flex-row flex-wrap gap-2">
@@ -513,18 +513,18 @@ Setting the field to '3 hp' will set the HP to be 3 with no roll.
       <input
         class="border text-center px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         type="text"
-        name="data.notes.public.label"
-        value="{{actor.data.data.notes.public.label}}"
+        name="system.notes.public.label"
+        value="{{actor.system.notes.public.label}}"
       />
       <!-- prettier-ignore  -->
       <textarea
-        name="data.notes.public.contents"
+        name="system.notes.public.contents"
         class="border px-1 border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         id=""
         cols="30"
         rows="10"
-        placeholder="{{actor.data.data.notes.public.label}}"
-      >{{actor.data.data.notes.public.contents}}</textarea>
+        placeholder="{{actor.system.notes.public.label}}"
+      >{{actor.system.notes.public.contents}}</textarea>
     </div>
   </div>
   {{/if}}

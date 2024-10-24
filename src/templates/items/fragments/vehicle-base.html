@@ -1,8 +1,8 @@
 <div class="flex flexrow gap-2 text-center">
   {{localize 'swnr.sheet.type.desc'}}:
-  <select name="data.type"
+  <select name="system.type"
         class="border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md">
-        {{#select data.data.type}}
+        {{#select item.system.type}}
         <option value="ship">
           {{localize 'swnr.sheet.type.ship'}}
         </option>
@@ -28,7 +28,7 @@
   </div> --}}
 
 
-  {{#if (ne item.data.data.type "drone")}}
+  {{#if (ne item.system.type "drone")}}
 
 
   <div class="flex flex-col items-center">
@@ -37,10 +37,10 @@
       type="number"
       class="w-16 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
       step="1"
-      name="data.cost"
+      name="system.cost"
       min="0"
       data-dtype="Number"
-      value="{{data.data.cost}}"
+      value="{{item.system.cost}}"
     />
   </div>
 
@@ -51,17 +51,17 @@
       type="number"
       class="w-16 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
       step="1"
-      name="data.power"
+      name="system.power"
       min="0"
       data-dtype="Number"
-      value="{{data.data.power}}"
+      value="{{item.system.power}}"
     />
   </div>
   {{/if}} 
 
   <!-- mass -->
   <div class="flex flex-col items-center">
-    {{#if (ne item.data.data.type "drone")}}
+    {{#if (ne item.system.type "drone")}}
       {{localize 'swnr.sheet.ship.mass'}}:
     {{else}}
       {{localize 'swnr.sheet.drone.fittings'}}:
@@ -70,23 +70,23 @@
       type="number"
       class="w-16 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
       step="1"
-      name="data.mass"
+      name="system.mass"
       min="0"
       data-dtype="Number"
-      value="{{data.data.mass}}"
+      value="{{item.system.mass}}"
     />
   </div>
 
     
-    {{#if (ne item.data.data.type "drone")}}
+    {{#if (ne item.system.type "drone")}}
 
     <!-- Ship /  class -->
     <div class="flex flex-col items-center">
       {{localize 'swnr.sheet.ship.min-ship-class'}}
-      <select name="data.minClass"
+      <select name="system.minClass"
         class="border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md">
-        {{#select data.data.minClass}}
-        {{#if (eq item.data.data.type "mech")}}
+        {{#select item.system.minClass}}
+        {{#if (eq item.system.type "mech")}}
         <option value="suit">
           {{localize 'swnr.sheet.mech.mechClass.suit'}}
         </option>
@@ -96,7 +96,7 @@
         <option value="heavy">
           {{localize 'swnr.sheet.mech.mechClass.heavy'}}
         </option>
-        {{else if (eq item.data.data.type "vehicle")}}
+        {{else if (eq item.system.type "vehicle")}}
           <option value="s">
             {{localize 'swnr.sheet.vehicle.vehicle-class.s'}}
           </option>
@@ -129,8 +129,8 @@
     {{localize 'swnr.sheet.ship.jury-rigged'}}:
         <input
           type="checkbox"
-          name="data.juryRigged"
-          {{checked data.data.juryRigged}}
+          name="system.juryRigged"
+          {{checked item.system.juryRigged}}
         />
   </div>
 
@@ -139,8 +139,8 @@
     {{localize 'swnr.sheet.ship.broken'}}:
         <input
           type="checkbox"
-          name="data.broken"
-          {{checked data.data.broken}}
+          name="system.broken"
+          {{checked item.system.broken}}
         />
   </div>
 
@@ -150,20 +150,20 @@
     {{localize 'swnr.sheet.ship.destroyed'}}:
         <input
           type="checkbox"
-          name="data.destroyed"
-          {{checked data.data.destroyed}}
+          name="system.destroyed"
+          {{checked item.system.destroyed}}
         />
   </div>
 
-    {{#if (and (ne item.data.data.type "drone") (ne item.data.data.type "vehicle"))}}
+    {{#if (and (ne item.system.type "drone") (ne item.system.type "vehicle"))}}
 
   <!-- costMultiplier --> 
   <div class="flex flex-row items-center">
     {{localize 'swnr.sheet.ship.costMultiplier'}}:
         <input
           type="checkbox"
-          name="data.costMultiplier"
-          {{checked data.data.costMultiplier}}
+          name="system.costMultiplier"
+          {{checked item.system.costMultiplier}}
         />
   </div>
 
@@ -172,8 +172,8 @@
     {{localize 'swnr.sheet.ship.powerMultiplier'}}:
         <input
           type="checkbox"
-          name="data.powerMultiplier"
-          {{checked data.data.powerMultiplier}}
+          name="system.powerMultiplier"
+          {{checked item.system.powerMultiplier}}
         />
   </div>
 
@@ -182,8 +182,8 @@
     {{localize 'swnr.sheet.ship.massMultiplier'}}:
         <input
           type="checkbox"
-          name="data.massMultiplier"
-          {{checked data.data.massMultiplier}}
+          name="system.massMultiplier"
+          {{checked item.system.massMultiplier}}
         />
   </div>
   {{/if}}

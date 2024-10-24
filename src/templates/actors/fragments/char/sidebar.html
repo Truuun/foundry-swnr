@@ -18,10 +18,10 @@
 
       </tr>
     </thead>
-    {{#each actor.data.data.stats as |stat key|}}
+    {{#each actor.system.stats as |stat key|}}
     <tr>
       <td class="attrClick pr-1" data-attr="{{key}}">
-        <label for="data.stats.{{key}}.base" class="resource-label px-1">
+        <label for="system.stats.{{key}}.base" class="resource-label px-1">
           {{localize (concat 'swnr.stat.short.' key)}}
         </label>
       </td>
@@ -38,7 +38,7 @@
           type="number"
           class="w-8 px-1 py-1 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
           step="1"
-          name="data.stats.{{key}}.temp"
+          name="system.stats.{{key}}.temp"
           value="{{stat.temp}}"
           data-dtype="Number"
         />
@@ -67,13 +67,13 @@
 <div class="flex-col flex gap-1">
   <div class="flex flexrow">
     <div class="flex gap-1 items-center">
-      <div><h3>{{localize 'swnr.effort.title'}} {{actor.data.data.effort.value}}/{{actor.data.data.effort.max}}</h3></div>
+      <div><h3>{{localize 'swnr.effort.title'}} {{actor.system.effort.value}}/{{actor.system.effort.max}}</h3></div>
       <div
         class="bg-purple-300 border border-purple-900 w-full rounded-full h-4 overflow-hidden"
       >
         <div
           class="bg-purple-500 h-full rounded-full"
-          style="width: min(calc(100% * {{actor.data.data.effort.value}}/{{actor.data.data.effort.max}}));"
+          style="width: min(calc(100% * {{actor.system.effort.value}}/{{actor.system.effort.max}}));"
         ></div>
       </div>
     </div>
@@ -81,21 +81,21 @@
 
   <div class="grid grid-cols-2"> <!--lg:flex-row-->
     <div class="flex flex-col">
-      <label for="data.effort.bonus">
+      <label for="system.effort.bonus">
         {{localize 'swnr.effort.bonus'}}:
       </label>
       <input
         class="w-10 text-center px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         type="number"
         step="1"
-        name="data.effort.bonus"
-        value="{{actor.data.data.effort.bonus}}"
+        name="system.effort.bonus"
+        value="{{actor.system.effort.bonus}}"
         data-dtype="Number"
       />
     </div>
     <div class="flex flex-col">
 
-      <label for="data.effort.current">
+      <label for="system.effort.current">
         {{localize 'swnr.effort.current'}}:
       </label>
       <input
@@ -103,14 +103,14 @@
         type="number"
         min="0"
         step="1"
-        max="{{concat data.effort.current data.effort.value}}"
-        name="data.effort.current"
-        value="{{actor.data.data.effort.current}}"
+        max="{{concat actor.system.effort.current actor.system.effort.value}}"
+        name="system.effort.current"
+        value="{{actor.system.effort.current}}"
         data-dtype="Number"
       />
     </div>
     <div class="flex flex-col">
-      <label for="data.effort.scene">
+      <label for="system.effort.scene">
         {{localize 'swnr.effort.scene'}}:
       </label>
       <input
@@ -118,14 +118,14 @@
         type="number"
         min="0"
         step="1"
-        max="{{concat data.effort.scene data.effort.value}}"
-        name="data.effort.scene"
-        value="{{actor.data.data.effort.scene}}"
+        max="{{concat actor.system.effort.scene actor.system.effort.value}}"
+        name="system.effort.scene"
+        value="{{actor.system.effort.scene}}"
         data-dtype="Number"
       />
     </div>
     <div class="flex flex-col">
-      <label for="data.effort.day"
+      <label for="system.effort.day"
         >{{localize 'swnr.effort.day'}}:
       </label>
       <input
@@ -133,29 +133,29 @@
         type="number"
         min="0"
         step="1"
-        max="{{concat data.effort.day data.effort.value}}"
-        name="data.effort.day"
-        value="{{actor.data.data.effort.day}}"
+        max="{{concat actor.system.effort.day actor.system.effort.value}}"
+        name="system.effort.day"
+        value="{{actor.system.effort.day}}"
         data-dtype="Number"
       />
     </div>
   </div>
 
 </div>
-{{#if actor.data.data.tweak.extraEffortName}}
+{{#if actor.system.tweak.extraEffortName}}
 <div class="flex-col flex gap-1">
   <div class="flex flexrow">
     <div class="flex gap-1 items-center">
       <div>
-        <h3>{{ actor.data.data.tweak.extraEffortName }} {{localize 'swnr.effort.title'}}
-        {{actor.data.data.tweak.extraEffort.value}}/{{actor.data.data.tweak.extraEffort.max}}
+        <h3>{{ actor.system.tweak.extraEffortName }} {{localize 'swnr.effort.title'}}
+        {{actor.system.tweak.extraEffort.value}}/{{actor.system.tweak.extraEffort.max}}
       </div>
       <div
         class="bg-purple-300 border border-purple-900 w-full rounded-full h-4 overflow-hidden"
       >
         <div
           class="bg-purple-500 h-full rounded-full"
-          style="width: min(calc(100% * {{actor.data.data.tweak.extraEffort.value}}/{{actor.data.data.tweak.extraEffort.max}}));"
+          style="width: min(calc(100% * {{actor.system.tweak.extraEffort.value}}/{{actor.system.tweak.extraEffort.max}}));"
         ></div>
       </div>
     </div>
@@ -163,33 +163,33 @@
 
   <div class="flex flex-row  gap-1"> <!--lg:flex-row-->
     <div>
-      <label for="data.tweak.extraEffort.max">
+      <label for="system.tweak.extraEffort.max">
         {{localize 'swnr.effort.max'}}:
       </label>
       <input
         class="w-10 text-center px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         type="number"
         step="1"
-        name="data.tweak.extraEffort.max"
-        value="{{actor.data.data.tweak.extraEffort.max}}"
+        name="system.tweak.extraEffort.max"
+        value="{{actor.system.tweak.extraEffort.max}}"
         data-dtype="Number"
       />
     </div>
     <div>
-      <label for="data.tweak.extraEffort.bonus">
+      <label for="system.tweak.extraEffort.bonus">
         {{localize 'swnr.effort.bonus'}}:
       </label>
       <input
         class="w-10 text-center px-1.5 py-3.5 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         type="number"
         step="1"
-        name="data.tweak.extraEffort.bonus"
-        value="{{actor.data.data.tweak.extraEffort.bonus}}"
+        name="system.tweak.extraEffort.bonus"
+        value="{{actor.system.tweak.extraEffort.bonus}}"
         data-dtype="Number"
       />
     </div>
     <div>
-      <label for="data.tweak.extraEffort.current">
+      <label for="system.tweak.extraEffort.current">
         {{localize 'swnr.effort.current'}}:
       </label>
       <input
@@ -197,9 +197,9 @@
         type="number"
         min="0"
         step="1"
-        max="{{concat data.tweak.extraEffort.current data.tweak.extraEffort.value}}"
-        name="data.tweak.extraEffort.current"
-        value="{{actor.data.data.tweak.extraEffort.current}}"
+        max="{{concat actor.system.tweak.extraEffort.current actor.system.tweak.extraEffort.value}}"
+        name="system.tweak.extraEffort.current"
+        value="{{actor.system.tweak.extraEffort.current}}"
         data-dtype="Number"
       />
     </div>
@@ -207,7 +207,7 @@
   <div class="flex flex-row  gap-1"> <!--lg:flex-row-->
 
     <div>
-      <label for="data.tweak.extraEffort.scene">
+      <label for="system.tweak.extraEffort.scene">
         {{localize 'swnr.effort.scene'}}:
       </label>
       <input
@@ -215,14 +215,14 @@
         type="number"
         min="0"
         step="1"
-        max="{{concat data.tweak.extraEffort.scene data.tweak.extraEffort.value}}"
-        name="data.tweak.extraEffort.scene"
-        value="{{actor.data.data.tweak.extraEffort.scene}}"
+        max="{{concat actor.system.tweak.extraEffort.scene actor.system.tweak.extraEffort.value}}"
+        name="system.tweak.extraEffort.scene"
+        value="{{actor.system.tweak.extraEffort.scene}}"
         data-dtype="Number"
       />
     </div>
     <div>
-      <label for="data.tweak.extraEffort.day"
+      <label for="system.tweak.extraEffort.day"
         >{{localize 'swnr.effort.day'}}:
       </label>
       <input
@@ -230,9 +230,9 @@
         type="number"
         min="0"
         step="1"
-        max="{{concat data.tweak.extraEffort.day data.tweak.extraEffort.value}}"
-        name="data.tweak.extraEffort.day"
-        value="{{actor.data.data.tweak.extraEffort.day}}"
+        max="{{concat actor.system.tweak.extraEffort.day actor.system.tweak.extraEffort.value}}"
+        name="system.tweak.extraEffort.day"
+        value="{{actor.system.tweak.extraEffort.day}}"
         data-dtype="Number"
       />
     </div>

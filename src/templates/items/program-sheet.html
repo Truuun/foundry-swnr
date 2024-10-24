@@ -3,9 +3,9 @@
   <div class="flex flexrow gap-2 text-center">
     <div class="flex flexrow">
       {{localize 'swnr.sheet.program.type'}}:
-       <select name="data.type"
+       <select name="system.type"
         class="border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md">
-        {{#select data.data.type}}
+        {{#select item.system.type}}
         <option value="verb">
           {{localize 'swnr.sheet.program.verb'}}
         </option>
@@ -26,14 +26,14 @@
             type="number"
             class="w-16 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
             step="1"
-            name="data.cost"
+            name="system.cost"
             min="0"
             data-dtype="Number"
-            value="{{data.data.cost}}"
+            value="{{item.system.cost}}"
           />
     </div>
 
-    {{#if (eq item.data.data.type "verb")}}
+    {{#if (eq item.system.type "verb")}}
     
     <div class="flex flex-col items-center">
        {{localize 'swnr.sheet.program.accessCost'}}:
@@ -41,10 +41,10 @@
             type="number"
             class="w-16 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
             step="1"
-            name="data.accessCost"
+            name="system.accessCost"
             min="0"
             data-dtype="Number"
-            value="{{data.data.accessCost}}"
+            value="{{item.system.accessCost}}"
           />
     </div>
 
@@ -53,7 +53,7 @@
     <div class="flexrow items-center">
         <span>
           {{localize 'swnr.sheet.program.selfTerminating'}}:
-          <input type="checkbox" name="data.selfTerminating" {{checked data.data.selfTerminating}}>
+          <input type="checkbox" name="system.selfTerminating" {{checked item.system.selfTerminating}}>
 
         </span>
     </div>
@@ -61,11 +61,11 @@
     {{/if}}
 
 
-    {{#if (eq item.data.data.type "subject")}}
+    {{#if (eq item.system.type "subject")}}
     <!-- placeholder-->
     {{/if}}
 
-    {{#if (ne item.data.data.type "datafile")}}
+    {{#if (ne item.system.type "datafile")}}
 
     <div class="flex flex-col items-center">
        {{localize 'swnr.sheet.program.skillCheckMod'}}:
@@ -73,14 +73,14 @@
             type="number"
             class="w-16 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
             step="1"
-            name="data.skillCheckMod"
+            name="system.skillCheckMod"
             data-dtype="Number"
-            value="{{data.data.skillCheckMod}}"
+            value="{{item.system.skillCheckMod}}"
           />
     </div>
 
     <div class="flex flex-col items-center">
-      {{#if (eq item.data.data.type "subject")}}
+      {{#if (eq item.system.type "subject")}}
          {{localize 'swnr.sheet.program.affect'}}:
       {{else}}
          {{localize 'swnr.sheet.program.use'}}:
@@ -88,24 +88,24 @@
 
       <input
             class="w-32 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-            name="data.useAffects"
+            name="system.useAffects"
             min="0"
-            value="{{data.data.useAffects}}"
+            value="{{item.system.useAffects}}"
           />
     </div>
 
 
     <div class="flex flex-col items-center">
-      {{#if (eq item.data.data.type "subject")}}
+      {{#if (eq item.system.type "subject")}}
          {{localize 'swnr.sheet.program.target'}}:
       {{else}}
          {{localize 'swnr.sheet.program.targetAllowed'}}:
       {{/if}}
       <input
             class="w-32 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-            name="data.target"
+            name="system.target"
             min="0"
-            value="{{data.data.target}}"
+            value="{{item.system.target}}"
           />
     </div>
     {{/if}}

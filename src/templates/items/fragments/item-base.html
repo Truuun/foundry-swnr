@@ -5,10 +5,10 @@
       type="number"
       class="w-10 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
       step="1"
-      name="data.encumbrance"
+      name="system.encumbrance"
       min="0"
       data-dtype="Number"
-      value="{{data.data.encumbrance}}"
+      value="{{item.system.encumbrance}}"
     />
   </div>
   <div class="flex flex-col items-center">
@@ -16,10 +16,10 @@
     <input
       type="number"
       class="w-10 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-      name="data.quantity"
+      name="system.quantity"
       min="0"
       step="1"
-      value="{{data.data.quantity}}"
+      value="{{item.system.quantity}}"
     />
   </div>
   {{#if (eq "item" item.type)}}
@@ -28,17 +28,17 @@
     <div class="flex gap-2 items-center">
       <input
         type="checkbox"
-        name="data.bundle.bundled"
-        {{checked data.data.bundle.bundled}}
+        name="system.bundle.bundled"
+        {{checked item.system.bundle.bundled}}
       />
       <input
         type="number"
         class="w-10 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
         step="1"
-        name="data.bundle.amount"
+        name="system.bundle.amount"
         min="1"
         data-dtype="Number"
-        value="{{data.data.bundle.amount}}"
+        value="{{item.system.bundle.amount}}"
       />
     </div>
   </div>
@@ -47,9 +47,9 @@
     {{localize 'swnr.item.location'}}:
     <select
       class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md"
-      name="data.data.location"
+      name="system.location"
     >
-      {{#select data.location}}
+      {{#select item.system.location}}
       <option value="readied">{{localize 'swnr.item.locationReadied'}}</option>
       <option value="stowed">{{localize 'swnr.item.locationStowed'}}</option>
       <option value="other">{{localize 'swnr.item.locationOther'}}</option>
@@ -62,10 +62,10 @@
       type="number"
       class="w-6 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
       step="1"
-      name="data.tl"
+      name="system.tl"
       min="0"
       data-dtype="Number"
-      value="{{data.data.tl}}"
+      value="{{item.system.tl}}"
     />
   </div>
   <div class="flex flex-col items-center">
@@ -74,19 +74,19 @@
       type="number"
       class="w-16 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
       step="1"
-      name="data.cost"
+      name="system.cost"
       min="0"
       data-dtype="Number"
-      value="{{data.data.cost}}"
+      value="{{item.system.cost}}"
     />
   </div>
   <div>
     {{localize 'swnr.item.quality.label'}}:
     <select
       class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md"
-      name="data.quality"
+      name="system.quality"
     >
-      {{#select data.data.quality}}
+      {{#select item.system.quality}}
       <option value="juryRigged">
         {{localize 'swnr.item.quality.juryRigged'}}
       </option>

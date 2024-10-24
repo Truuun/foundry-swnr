@@ -4,10 +4,10 @@
     <div>
       <div>Stat:</div>
       <select
-        name="data.defaultStat"
+        name="system.defaultStat"
         class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md"
       >
-        {{#select data.data.defaultStat}}
+        {{#select item.system.defaultStat}}
         <option value="ask">{{localize 'swnr.sheet.ask'}}</option>
         {{#*inline "statline"}}
         <option value="{{name}}">
@@ -21,10 +21,10 @@
     <div>
       <div>Die Pool:</div>
       <select
-        name="data.pool"
+        name="system.pool"
         class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md"
       >
-        {{#select data.data.pool}}
+        {{#select item.system.pool}}
         <option value="ask">{{localize 'swnr.sheet.ask'}}</option>
         <option value="2d6">2D6</option>
         <option value="3d6kh2">3D6</option>
@@ -37,31 +37,31 @@
       <input
         type="number"
         class="px-1 text-center w-8 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md"
-        name="data.rank"
+        name="system.rank"
         min="-1"
         max="4"
         step="1"
-        value="{{data.data.rank}}"
+        value="{{item.system.rank}}"
       />
     </div>
     <div>
       <div>Source:</div>
       <input
         type="text"
-        name="data.source"
-        value="{{data.data.source}}"
+        name="system.source"
+        value="{{item.system.source}}"
         class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md"
       />
     </div>
   </div>
   <div class="p-2 m-2">
-    {{#if data.data.remember}}
-      {{#if data.data.remember.use}}
+    {{#if item.system.remember}}
+      {{#if item.system.remember.use}}
         <label class="flex items-center gap-1">
           <input
             type="checkbox"
-            name="data.remember.use"
-            {{checked data.data.remember.use}}
+            name="system.remember.use"
+            {{checked item.system.remember.use}}
           />
           <div>Use remembered skill (dice, mod, etc). <br>
             Uncheck to forget and ask on next to roll -- stat and dice selection will remain.</div>

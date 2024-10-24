@@ -6,7 +6,7 @@
       {{localize 'swnr.sheet.ship.effect'}}:
       <input
         class="w-64 text-center px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-        type="text" name="data.effect" value="{{data.data.effect}}" />
+        type="text" name="system.effect" value="{{item.system.effect}}" />
     </div>
 
 
@@ -14,7 +14,7 @@
       {{localize 'swnr.item.cost'}}:
       <input type="number"
         class="w-16 px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-        step="1" name="data.cost" min="0" data-dtype="Number" value="{{data.data.cost}}" />
+        step="1" name="system.cost" min="0" data-dtype="Number" value="{{item.system.cost}}" />
     </div>
 
 
@@ -22,14 +22,14 @@
       {{localize 'swnr.sheet.system-strain'}}:
       <input
         class="w-64 text-center px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-        type="number" name="data.strain" data-dtype="Number" value="{{data.data.strain}}" />
+        type="number" name="system.strain" data-dtype="Number" value="{{item.system.strain}}" />
     </div>
 
     <!-- tl -->
     <div>
       <div> {{localize 'swnr.item.techlevel'}}: </div>
-      <select class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md" name="data.tl">
-        {{#select data.data.tl}}
+      <select class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md" name="system.tl">
+        {{#select item.system.tl}}
         <option value="">{{localize 'swnr.ammo.none'}}</option>
         <option value="4">4</option>
         <option value="4">5</option>
@@ -42,16 +42,16 @@
       {{localize 'swnr.sheet.cyberware.disabled'}}:         
       <input
           type="checkbox"
-          name="data.disabled"
-          {{checked data.data.disabled}}>
+          name="system.disabled"
+          {{checked item.system.disabled}}>
     </div>
 
-    {{#if data.data.settings.useCWNCyber}}
+    {{#if item.system.settings.useCWNCyber}}
     <!--Concealment -->
     <div>
       <div> {{localize 'swnr.sheet.cyberware.concealment'}}: </div>
-      <select class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md" name="data.concealment">
-        {{#select data.data.concealment}}
+      <select class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md" name="system.concealment">
+        {{#select item.system.concealment}}
         <option value="">{{localize 'swnr.ammo.none'}}</option>
         <option value="Sight">{{localize 'swnr.sheet.cyberware.conc.sight'}}</option>
         <option value="Touch">{{localize 'swnr.sheet.cyberware.conc.touch'}}</option>
@@ -65,8 +65,8 @@
       <div>
         {{localize 'swnr.sheet.cyberware.type'}}:
       </div>
-      <select class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md" name="data.type">
-        {{#select data.data.type}}
+      <select class="px-1 border border-gray-800 bg-gray-400 bg-opacity-75 rounded-md" name="system.type">
+        {{#select item.system.type}}
         <option value="">{{localize 'swnr.ammo.none'}}</option>
         <option value="Head">{{localize 'swnr.sheet.cyberware.types.head'}}</option>
         <option value="Body">{{localize 'swnr.sheet.cyberware.types.body'}}</option>
@@ -81,7 +81,7 @@
       {{localize 'swnr.sheet.cyberware.complication'}}:
       <input
         class="w-64 text-center px-1.5 py-3 border border-gray-800 bg-gray-400 bg-opacity-75 placeholder-blue-800 placeholder-opacity-75 rounded-md"
-        type="text" name="data.complication" value="{{data.data.complication}}" />
+        type="text" name="system.complication" value="{{item.system.complication}}" />
     </div>
 
     {{/if}}
