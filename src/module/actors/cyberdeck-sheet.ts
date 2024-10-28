@@ -40,8 +40,8 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
     if (data instanceof Promise) data = await data;
 
     let hacker: SWNRCharacterActor | SWNRNPCActor | null = null;
-    if (this.actor.system.hackerId) {
-      const cId = this.actor.system.hackerId;
+    if (this.actor.data.data.hackerId) {
+      const cId = this.actor.data.data.hackerId;
       const crewMember = game.actors?.get(cId);
       if (crewMember) {
         if (crewMember.type == "character" || crewMember.type == "npc") {
@@ -54,19 +54,19 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
     ) as SWNRProgram[];
 
     const activePrograms: SWNRProgram[] = programs.filter(
-      (item): item is SWNRProgram => item.system.type === "running"
+      (item): item is SWNRProgram => item.data.data.type === "running"
     ) as SWNRProgram[];
 
     const verbs: SWNRProgram[] = programs.filter(
-      (item): item is SWNRProgram => item.system.type === "verb"
+      (item): item is SWNRProgram => item.data.data.type === "verb"
     ) as SWNRProgram[];
 
     const subjects: SWNRProgram[] = programs.filter(
-      (item): item is SWNRProgram => item.system.type === "subject"
+      (item): item is SWNRProgram => item.data.data.type === "subject"
     ) as SWNRProgram[];
 
     const datafiles: SWNRProgram[] = programs.filter(
-      (item): item is SWNRProgram => item.system.type === "datafile"
+      (item): item is SWNRProgram => item.data.data.type === "datafile"
     ) as SWNRProgram[];
 
     const access = {
@@ -77,14 +77,14 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
     if (hacker) {
       if (hacker.type == "character") {
         access.value =
-          hacker.system.access.value + this.actor.system.bonusAccess;
+          hacker.data.data.access.value + this.actor.data.data.bonusAccess;
         access.max =
-          hacker.system.access.max + this.actor.system.bonusAccess;
+          hacker.data.data.access.max + this.actor.data.data.bonusAccess;
       } else if (hacker.type == "npc") {
         access.value =
-          hacker.system.access.value + this.actor.system.bonusAccess;
+          hacker.data.data.access.value + this.actor.data.data.bonusAccess;
         access.max =
-          hacker.system.access.max + this.actor.system.bonusAccess;
+          hacker.data.data.access.max + this.actor.data.data.bonusAccess;
       }
     }
 
@@ -101,7 +101,7 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
 
   async _onActivate(event: JQuery.ClickEvent): Promise<void> {
     event.preventDefault();
-    if (this.actor.system.cpu.value < 1) {
+    if (this.actor.data.data.cpu.value < 1) {
       ui.notifications?.error("Not enough CPU to activate program");
       return;
     }
@@ -151,8 +151,8 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
       }
 
       if (
-        verb.system.target &&
-        verb.system.target.indexOf(subject.system.target) === -1
+        verb.data.data.target &&
+        verb.data.data.target.indexOf(subject.data.data.target) === -1
       ) {
         ui.notifications?.error(
           "Verb and Subject are incompatible (target and type does not match)"
@@ -160,11 +160,11 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
         return;
       }
       let skillCheckMod = 0;
-      if (verb.system.skillCheckMod) {
-        skillCheckMod += verb.system.skillCheckMod;
+      if (verb.data.data.skillCheckMod) {
+        skillCheckMod += verb.data.data.skillCheckMod;
       }
-      if (subject.system.skillCheckMod) {
-        skillCheckMod += subject.system.skillCheckMod;
+      if (subject.data.data.skillCheckMod) {
+        skillCheckMod += subject.data.data.skillCheckMod;
       }
       const newProgram = {
         name: `${verb.name} ${subject.name}`,
@@ -172,10 +172,10 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
         img: verb.img,
         data: {
           type: "running",
-          cost: verb.system.cost,
-          accessCost: verb.system.accessCost,
-          useAffects: verb.system.useAffects,
-          selfTerminating: verb.system.selfTerminating,
+          cost: verb.data.data.cost,
+          accessCost: verb.data.data.accessCost,
+          useAffects: verb.data.data.useAffects,
+          selfTerminating: verb.data.data.selfTerminating,
           skillCheckMod: skillCheckMod,
         },
       };
@@ -195,11 +195,11 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
       if (sheetData.hacker) {
         let access = 0;
         if (sheetData.hacker.type == "character") {
-          access = sheetData.hacker.system.access.value;
-          access -= program.system.accessCost;
+          access = sheetData.hacker.data.data.access.value;
+          access -= program.data.data.accessCost;
         } else if (sheetData.hacker.type == "npc") {
-          access = sheetData.hacker.system.access.value;
-          access -= program.system.accessCost;
+          access = sheetData.hacker.data.data.access.value;
+          access -= program.data.data.accessCost;
         }
         await sheetData.hacker.update({
           "data.access.value": access,
@@ -212,11 +212,11 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
       // Roll skill / create button
       program.roll();
 
-      if (program.system.selfTerminating) {
+      if (program.data.data.selfTerminating) {
         program.delete();
       } else {
         // await this.actor.update({
-        //   "data.cpu.value": this.actor.system.cpu.value - 1,
+        //   "data.cpu.value": this.actor.data.data.cpu.value - 1,
         // });
       }
     };
@@ -237,8 +237,8 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
 
   async _onRefreshShielding(event: JQuery.ClickEvent): Promise<void> {
     event.preventDefault();
-    const oldShielding = this.actor.system.health.value;
-    const maxShielding = this.actor.system.health.max;
+    const oldShielding = this.actor.data.data.health.value;
+    const maxShielding = this.actor.data.data.health.max;
 
     ui.notifications?.info(
       `Refreshing shielding from ${oldShielding} to ${maxShielding} (reminder 15 minutes to pass)`
@@ -253,10 +253,10 @@ export class CyberdeckActorSheet extends VehicleBaseActorSheet<CyberdeckActorShe
 
     const hacker = this.actor.getHacker();
     if (hacker) {
-      const maxAccess = hacker.system.access.max;
-      const newAccessDisplay = maxAccess + this.actor.system.bonusAccess;
+      const maxAccess = hacker.data.data.access.max;
+      const newAccessDisplay = maxAccess + this.actor.data.data.bonusAccess;
       const oldAccess =
-        hacker.system.access.value + this.actor.system.bonusAccess;
+        hacker.data.data.access.value + this.actor.data.data.bonusAccess;
       ui.notifications?.info(
         `Refreshing access from ${oldAccess} to ${newAccessDisplay} (reminder after 1 hour reprogramming, once per day)`
       );

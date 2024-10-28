@@ -28,11 +28,11 @@ export class SWNRFactionAsset extends SWNRBaseItem<"asset"> {
     const actor: SWNRFactionActor = this.actor;
     if (attackType) {
       if (attackType === "cunning") {
-        hitBonus = actor.system.cunningRating;
+        hitBonus = actor.data.data.cunningRating;
       } else if (attackType === "force") {
-        hitBonus = actor.system.forceRating;
+        hitBonus = actor.data.data.forceRating;
       } else if (attackType === "wealth") {
-        hitBonus = actor.system.wealthRating;
+        hitBonus = actor.data.data.wealthRating;
       }
     }
     const rollData = {
@@ -63,12 +63,12 @@ export class SWNRFactionAsset extends SWNRBaseItem<"asset"> {
       : "swnr.sheet.faction.counter-roll";
 
     const dialogData = {
-      desc: this.system.description,
+      desc: this.data.data.description,
       name: `${this.actor?.name} - ${this.name}`,
       hitRoll: await attackRolls[0].render(),
       damageRoll: await attackRolls[1].render(),
       attackKey: game.i18n.localize(attackKey),
-      attackSpecial: this.system.attackSpecial,
+      attackSpecial: this.data.data.attackSpecial,
     };
     const template = "systems/swnr/templates/chat/asset-attack.html";
     const chatContent = await renderTemplate(template, dialogData);
@@ -99,7 +99,7 @@ export class SWNRFactionAsset extends SWNRBaseItem<"asset"> {
     const otherActiveFactions: any[] | undefined = game.actors?.filter(
       (i) =>
         i.type === "faction" &&
-        i.system.active == true &&
+        i.data.data.active == true &&
         this.actor?.id != i.id
     );
     if (!otherActiveFactions || otherActiveFactions.length == 0) {
@@ -116,18 +116,18 @@ export class SWNRFactionAsset extends SWNRBaseItem<"asset"> {
     for (const f of otherActiveFactions) {
       const fA = <SWNRFactionActor>f;
       if (targetType === "cunning") {
-        if (fA.id && fA.system.cunningAssets.length > 0) {
-          targetFactions[fA.id] = [fA, fA.system.cunningAssets];
+        if (fA.id && fA.data.data.cunningAssets.length > 0) {
+          targetFactions[fA.id] = [fA, fA.data.data.cunningAssets];
           factionIdNames[fA.id] = fA.name;
         }
       } else if (targetType === "force") {
-        if (fA.id && fA.system.forceAssets.length > 0) {
-          targetFactions[fA.id] = [fA, fA.system.forceAssets];
+        if (fA.id && fA.data.data.forceAssets.length > 0) {
+          targetFactions[fA.id] = [fA, fA.data.data.forceAssets];
           factionIdNames[fA.id] = fA.name;
         }
       } else if (targetType === "wealth") {
-        if (fA.id && fA.system.wealthAssets.length > 0) {
-          targetFactions[fA.id] = [fA, fA.system.wealthAssets];
+        if (fA.id && fA.data.data.wealthAssets.length > 0) {
+          targetFactions[fA.id] = [fA, fA.data.data.wealthAssets];
           factionIdNames[fA.id] = fA.name;
         }
       }
@@ -207,7 +207,7 @@ export class SWNRFactionAsset extends SWNRBaseItem<"asset"> {
       }
       const name = `${this.actor?.name} - ${this.name} attacking ${attackedAsset.name} (${attackedFaction.name})`;
       const dialogData = {
-        desc: this.system.description,
+        desc: this.data.data.description,
         name,
         hitRoll: await hitRoll.render(),
         defRoll: await defRoll.render(),
@@ -215,8 +215,8 @@ export class SWNRFactionAsset extends SWNRBaseItem<"asset"> {
         defDamage: defDamage,
         attackDesc: attackDesc,
         attackKey: game.i18n.localize("attackKey"),
-        defenseSpecial: attackedAsset.system.attackSpecial,
-        attackSpecial: this.system.attackSpecial,
+        defenseSpecial: attackedAsset.data.data.attackSpecial,
+        attackSpecial: this.data.data.attackSpecial,
       };
       const template = "systems/swnr/templates/chat/asset-attack-def.html";
       const chatContent = await renderTemplate(template, dialogData);
@@ -256,7 +256,7 @@ export class SWNRFactionAsset extends SWNRBaseItem<"asset"> {
     // Basic template rendering data
     let content = `<h3> ${this.name} </h3>`;
     if ("description" in this.data.data) {
-      content += `<span class="flavor-text"> ${this.system.description}</span>`;
+      content += `<span class="flavor-text"> ${this.data.data.description}</span>`;
     } else {
       content += "<span class='flavor-text'> No Description</span>";
     }

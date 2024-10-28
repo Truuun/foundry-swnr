@@ -27,10 +27,10 @@ export class SWNRDroneActor extends SWNRBaseActor<"drone"> {
       this.items.filter((i) => i.type === "weapon")
     );
     let totalMass = shipInventory
-      .map((i) => i.system.mass)
+      .map((i) => i.data.data.mass)
       .reduce((i, n) => i + n, 0);
     const totalWeaponMass = shipWeaponInventory
-      .map((i) => i.system.mass)
+      .map((i) => i.data.data.mass)
       .reduce((i, n) => i + n, 0);
     //CWN has hardpoints. Caclulate max hardpoints based on item count
     if (data.hardpoints.max > 0) {
@@ -77,7 +77,7 @@ export class SWNRDroneActor extends SWNRBaseActor<"drone"> {
   async addCrew(actorId: string): Promise<void> {
     const actor = game.actors?.get(actorId);
     if (actor) {
-      const crewMembers = this.system.crewMembers;
+      const crewMembers = this.data.data.crewMembers;
       //Only add crew once
       if (crewMembers.indexOf(actorId) == -1) {
         //only one crew member allowed
@@ -89,7 +89,7 @@ export class SWNRDroneActor extends SWNRBaseActor<"drone"> {
           });
         } else {
           // No crew member
-          let crew = this.system.crew.current;
+          let crew = this.data.data.crew.current;
           crew += 1;
           crewMembers.push(actorId);
           await this.update({
@@ -97,7 +97,7 @@ export class SWNRDroneActor extends SWNRBaseActor<"drone"> {
             "data.crewMembers": crewMembers,
           });
         }
-        const itemName = this.name + " " + this.system.model;
+        const itemName = this.name + " " + this.data.data.model;
         actor.createEmbeddedDocuments(
           "Item",
           [
@@ -106,7 +106,7 @@ export class SWNRDroneActor extends SWNRBaseActor<"drone"> {
               type: "item",
               img: "systems/swnr/assets/icons/drone.png",
               data: {
-                encumbrance: this.system.enc,
+                encumbrance: this.data.data.enc,
               },
             },
           ],
@@ -122,14 +122,14 @@ export class SWNRDroneActor extends SWNRBaseActor<"drone"> {
   }
 
   async removeCrew(actorId: string): Promise<void> {
-    const crewMembers = this.system.crewMembers;
+    const crewMembers = this.data.data.crewMembers;
     //Only remove if there
     const idx = crewMembers.indexOf(actorId);
     if (idx == -1) {
       ui.notifications?.error("Crew member not found");
     } else {
       crewMembers.splice(idx, 1);
-      let crew = this.system.crew.current;
+      let crew = this.data.data.crew.current;
       crew -= 1;
       await this.update({
         "data.crew.current": crew,

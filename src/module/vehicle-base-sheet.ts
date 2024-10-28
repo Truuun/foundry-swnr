@@ -105,9 +105,9 @@ export class VehicleBaseActorSheet<
         : false;
       const npcSkillBonus =
         useNPCSkillBonus && crewActor.type == "npc"
-          ? crewActor.system.skillBonus
+          ? crewActor.data.data.skillBonus
           : 0;
-      const skillBonus = skill ? skill.system.rank : npcSkillBonus;
+      const skillBonus = skill ? skill.data.data.rank : npcSkillBonus;
       const statName = (<HTMLSelectElement>form.querySelector('[name="stat"]'))
         ?.value;
       const stat = crewActor.data.data["stats"]?.[statName] || {
@@ -256,8 +256,8 @@ Hooks.on("preCreateItem", (item: Item, data, options, id) => {
         (item as unknown)
       );
       const data = shipItem.data.data;
-      if (item.parent.type == "ship" && shipItem.system.type == "ship") {
-        const shipClass = item.parent.system.shipClass;
+      if (item.parent.type == "ship" && shipItem.data.data.type == "ship") {
+        const shipClass = item.parent.data.data.shipClass;
         if (
           data.minClass != "" &&
           compareShipClass(shipClass, data.minClass) < 0
@@ -268,9 +268,9 @@ Hooks.on("preCreateItem", (item: Item, data, options, id) => {
         }
       } else if (
         item.parent.type == "mech" &&
-        shipItem.system.type == "mech"
+        shipItem.data.data.type == "mech"
       ) {
-        const mechClass = item.parent.system.mechClass;
+        const mechClass = item.parent.data.data.mechClass;
         if (
           data.minClass != "" &&
           compareMechClass(mechClass, data.minClass) < 0
@@ -281,9 +281,9 @@ Hooks.on("preCreateItem", (item: Item, data, options, id) => {
         }
       } else if (
         item.parent.type == "vehicle" &&
-        shipItem.system.type == "vehicle"
+        shipItem.data.data.type == "vehicle"
       ) {
-        const vehicleClass = item.parent.system.size;
+        const vehicleClass = item.parent.data.data.size;
         if (
           data.minClass != "" &&
           compareVehicleClass(vehicleClass, data.minClass) < 0

@@ -34,12 +34,12 @@ export class SWNRMechActor extends SWNRBaseActor<"mech"> {
 
     for (let i = 0; i < mechInventory.length; i++) {
       const item = mechInventory[i];
-      let itemMass = item.system.mass;
-      let itemPower = item.system.power;
-      if (item.system.massMultiplier) {
+      let itemMass = item.data.data.mass;
+      let itemPower = item.data.data.power;
+      if (item.data.data.massMultiplier) {
         itemMass *= multiplier;
       }
-      if (item.system.powerMultiplier) {
+      if (item.data.data.powerMultiplier) {
         itemPower *= multiplier;
       }
       mechMass -= itemMass;
@@ -59,7 +59,7 @@ export class SWNRMechActor extends SWNRBaseActor<"mech"> {
   async addCrew(actorId: string): Promise<void> {
     const actor = game.actors?.get(actorId);
     if (actor) {
-      const crewMembers = this.system.crewMembers;
+      const crewMembers = this.data.data.crewMembers;
       //Only add crew once
       if (crewMembers.indexOf(actorId) == -1) {
         //only one crew member allowed
@@ -71,7 +71,7 @@ export class SWNRMechActor extends SWNRBaseActor<"mech"> {
           });
         } else {
           // No crew member
-          let crew = this.system.crew.current;
+          let crew = this.data.data.crew.current;
           crew += 1;
           crewMembers.push(actorId);
           await this.update({
@@ -86,14 +86,14 @@ export class SWNRMechActor extends SWNRBaseActor<"mech"> {
   }
 
   async removeCrew(actorId: string): Promise<void> {
-    const crewMembers = this.system.crewMembers;
+    const crewMembers = this.data.data.crewMembers;
     //Only remove if there
     const idx = crewMembers.indexOf(actorId);
     if (idx == -1) {
       ui.notifications?.error("Crew member not found");
     } else {
       crewMembers.splice(idx, 1);
-      let crew = this.system.crew.current;
+      let crew = this.data.data.crew.current;
       crew -= 1;
       await this.update({
         "data.crew.current": crew,

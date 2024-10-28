@@ -78,7 +78,7 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
       html.find(".message-header").remove();
       content = html.html().toString();
     }
-    const log = this.system.log;
+    const log = this.data.data.log;
     log.push(content);
     await this.update({
       data: {
@@ -92,7 +92,7 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
     desc: string,
     effect: string
   ): Promise<void> {
-    const tags = this.system.tags;
+    const tags = this.data.data.tags;
     const tag: SWNRTag = {
       name,
       desc,
@@ -112,7 +112,7 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
       ui.notifications?.error(`Error unable to find tag ${name}`);
       return;
     }
-    const tags = this.system.tags;
+    const tags = this.data.data.tags;
     tags.push(match[0]);
     await this.update({
       data: {
@@ -127,19 +127,19 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
     name: string,
     imgPath: string | null
   ): Promise<void> {
-    if (hp > this.system.health.max) {
+    if (hp > this.data.data.health.max) {
       ui.notifications?.error(
-        `Error HP of new base (${hp}) cannot be greater than faction max HP (${this.system.health.max})`
+        `Error HP of new base (${hp}) cannot be greater than faction max HP (${this.data.data.health.max})`
       );
       return;
     }
-    if (hp > this.system.facCreds) {
+    if (hp > this.data.data.facCreds) {
       ui.notifications?.error(
-        `Error HP of new base (${hp}) cannot be greater than facCred  (${this.system.facCreds})`
+        `Error HP of new base (${hp}) cannot be greater than facCred  (${this.data.data.facCreds})`
       );
       return;
     }
-    const newFacCreds = this.system.facCreds - hp;
+    const newFacCreds = this.data.data.facCreds - hp;
     await this.update({ data: { facCreds: newFacCreds } });
     await this.createEmbeddedDocuments(
       "Item",
@@ -182,28 +182,28 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
     const assets = <SWNRBaseItem<"asset">[]>(
       this.items.filter((i) => i.type === "asset")
     );
-    const wealthIncome = Math.ceil(this.system.wealthRating / 2);
+    const wealthIncome = Math.ceil(this.data.data.wealthRating / 2);
     const cunningForceIncome = Math.floor(
-      (this.system.cunningRating + this.system.forceRating) / 4
+      (this.data.data.cunningRating + this.data.data.forceRating) / 4
     );
     const assetIncome = assets
-      .map((i) => i.system.income)
+      .map((i) => i.data.data.income)
       .reduce((i, n) => i + n, 0);
-    const assetWithMaint = assets.filter((i) => i.system.maintenance);
+    const assetWithMaint = assets.filter((i) => i.data.data.maintenance);
     const assetMaintTotal = assetWithMaint
-      .map((i) => i.system.maintenance)
+      .map((i) => i.data.data.maintenance)
       .reduce((i, n) => i + n, 0);
 
     const cunningAssetsOverLimit = Math.min(
-      this.system.cunningRating - this.system.cunningAssets.length,
+      this.data.data.cunningRating - this.data.data.cunningAssets.length,
       0
     );
     const forceAssetsOverLimit = Math.min(
-      this.system.forceRating - this.system.forceAssets.length,
+      this.data.data.forceRating - this.data.data.forceAssets.length,
       0
     );
     const wealthAssetsOverLimit = Math.min(
-      this.system.wealthRating - this.system.wealthAssets.length,
+      this.data.data.wealthRating - this.data.data.wealthAssets.length,
       0
     );
     const costFromAssetsOver =
@@ -214,9 +214,9 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
       assetIncome -
       assetMaintTotal +
       costFromAssetsOver;
-    let new_creds = Math.ceil(this.system.facCreds + income);
+    let new_creds = this.data.data.facCreds + income;
 
-    const assetsWithTurn = assets.filter((i) => i.system.turnRoll);
+    const assetsWithTurn = assets.filter((i) => i.data.data.turnRoll);
     let msg = `<b>Income this round: ${income}</b>.<br> From ratings: ${
       wealthIncome + cunningForceIncome
     } (W:${wealthIncome} C+F:${cunningForceIncome})<br>From assets: ${assetIncome}.<br>Maintenance -${assetMaintTotal}.<br>`;
@@ -231,7 +231,7 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
       longMsg += "Assets with turn notes/rolls:<br>";
     }
     for (const a of assetsWithTurn) {
-      longMsg += `<i>${a.name}</i>: ${a.system.turnRoll} <br>`;
+      longMsg += `<i>${a.name}</i>: ${a.data.data.turnRoll} <br>`;
     }
     const aitems: Record<string, unknown>[] = [];
 
@@ -240,7 +240,7 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
         //Marking all assets unusable would still not bring money above, can mark all w/maint as unusable.
         for (let i = 0; i < assetWithMaint.length; i++) {
           const asset = assetWithMaint[i];
-          const assetCost = asset.system.maintenance;
+          const assetCost = asset.data.data.maintenance;
           new_creds += assetCost; // return the money
           aitems.push({ _id: asset.id, data: { unusable: true } });
         }
@@ -252,7 +252,7 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
         msg += ` <b>Out of money and unable to pay for all assets</b>, need to make assets unusable. Mark unusable for assets to cover facCreds: ${income}<br>`;
       }
     }
-    msg += `<b> Old FacCreds: ${this.system.facCreds}. New FacCreds: ${new_creds}</b><br>`;
+    msg += `<b> Old FacCreds: ${this.data.data.facCreds}. New FacCreds: ${new_creds}</b><br>`;
     await this.update({ data: { facCreds: new_creds } });
     const title = `New Turn for ${this.name}`;
     await this.logMessage(title, msg, longMsg);
@@ -273,7 +273,7 @@ export class SWNRFactionActor extends SWNRBaseActor<"faction"> {
       ratingLevel = 0;
     }
     const targetLevel = parseInt(ratingLevel) + 1;
-    let xp = this.system.xp;
+    let xp = this.data.data.xp;
     if (targetLevel in HEALTH__XP_TABLE) {
       const req_xp = HEALTH__XP_TABLE[targetLevel];
       if (req_xp > xp) {

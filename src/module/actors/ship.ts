@@ -101,12 +101,12 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
 
     for (let i = 0; i < shipInventory.length; i++) {
       const item = shipInventory[i];
-      let itemMass = item.system.mass;
-      let itemPower = item.system.power;
-      if (item.system.massMultiplier) {
+      let itemMass = item.data.data.mass;
+      let itemPower = item.data.data.power;
+      if (item.data.data.massMultiplier) {
         itemMass *= multiplier;
       }
-      if (item.system.powerMultiplier) {
+      if (item.data.data.powerMultiplier) {
         itemPower *= multiplier;
       }
       shipMass -= itemMass;
@@ -132,9 +132,9 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
   }
 
   async useDaysOfLifeSupport(nDays: number): Promise<void> {
-    if (this.system.crew.current > 0) {
-      let newLifeDays = this.system.lifeSupportDays.value;
-      newLifeDays -= this.system.crew.current * nDays;
+    if (this.data.data.crew.current > 0) {
+      let newLifeDays = this.data.data.lifeSupportDays.value;
+      newLifeDays -= this.data.data.crew.current * nDays;
       await this.update({
         "data.lifeSupportDays.value": newLifeDays,
       });
@@ -321,7 +321,7 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
 
     this.useDaysOfLifeSupport(travelDays);
     if (travelDays > 0) {
-      let fuel = this.system.fuel.value;
+      let fuel = this.data.data.fuel.value;
       fuel -= 1;
       await this.update({ "data.fuel.value": fuel });
       if (fuel <= 0) {
@@ -332,12 +332,12 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
   }
 
   async calcCost(maintenance: boolean): Promise<void> {
-    const hull = this.system.shipHullType;
-    const shipClass = this.system.shipClass;
-    this.system.maintenanceCost;
+    const hull = this.data.data.shipHullType;
+    const shipClass = this.data.data.shipClass;
+    this.data.data.maintenanceCost;
     const shipData = HULL_DATA[hull];
     if (shipData) {
-      let baseCost = shipsystem.cost;
+      let baseCost = shipData.data.cost;
       let multiplier = 1;
       if (shipClass == "frigate") {
         multiplier = 10;
@@ -365,9 +365,9 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
 
       for (let i = 0; i < shipInventory.length; i++) {
         const item = shipInventory[i];
-        const itemCost = item.system.costMultiplier
-          ? item.system.cost * multiplier
-          : item.system.cost;
+        const itemCost = item.data.data.costMultiplier
+          ? item.data.data.cost * multiplier
+          : item.data.data.cost;
         baseCost += itemCost;
       }
 
@@ -415,7 +415,7 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
       throw new TypeError();
     }
     if (id == this.ENGINE_ID) {
-      let curSpike = this.system.spikeDrive.value;
+      let curSpike = this.data.data.spikeDrive.value;
       if (forceDestroy) {
         curSpike = 0;
       } else {
@@ -434,11 +434,11 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
       //console.log(item);
       if (
         forceDestroy ||
-        item?.system.broken ||
-        item?.system.juryRigged
+        item?.data.data.broken ||
+        item?.data.data.juryRigged
       ) {
         let msg = `${item.name} Destroyed`;
-        if (item?.system.juryRigged) {
+        if (item?.data.data.juryRigged) {
           msg += " (item was jury-rigged)";
         }
         const eitem = {
@@ -464,7 +464,7 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
     const candidateIds: string[] = [];
     let idx = sysToInclude.indexOf("drive");
     if (idx > -1) {
-      if (this.system.spikeDrive.value > 0) {
+      if (this.data.data.spikeDrive.value > 0) {
         candidateIds.push(this.ENGINE_ID);
       }
       sysToInclude.splice(idx, 1);
@@ -569,10 +569,10 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
   async addCrew(actorId: string): Promise<void> {
     const actor = game.actors?.get(actorId);
     if (actor) {
-      const crewMembers = this.system.crewMembers;
+      const crewMembers = this.data.data.crewMembers;
       //Only add crew once
       if (crewMembers.indexOf(actorId) == -1) {
-        let crew = this.system.crew.current;
+        let crew = this.data.data.crew.current;
         crew += 1;
         crewMembers.push(actorId);
         await this.update({
@@ -586,17 +586,17 @@ export class SWNRShipActor extends SWNRBaseActor<"ship"> {
   }
 
   async removeCrew(actorId: string): Promise<void> {
-    const crewMembers = this.system.crewMembers;
+    const crewMembers = this.data.data.crewMembers;
     //Only remove if there
     const idx = crewMembers.indexOf(actorId);
     if (idx == -1) {
       ui.notifications?.error("Crew member not found");
     } else {
       crewMembers.splice(idx, 1);
-      let crew = this.system.crew.current;
+      let crew = this.data.data.crew.current;
       crew -= 1;
-      if (this.system.roles) {
-        const roles = this.system.roles;
+      if (this.data.data.roles) {
+        const roles = this.data.data.roles;
         if (roles.captain == actorId) {
           roles.captain = "";
         }
